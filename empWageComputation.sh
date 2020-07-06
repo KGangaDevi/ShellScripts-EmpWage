@@ -1,13 +1,16 @@
 #!/bin/bash -x
-isPresent=1
-isAbsent=0
+isPartTime=1
+isFullTime=2
 empWageperHour=20
-isFulltime=8
-empCheck=$((RANDOM%2))
-if [[ empCheck -eq 1 ]]
+empCheck=$((RANDOM%3))
+if [[ $isFullTime -eq $empCheck ]]
 then
-	salary=$(($empWageperHour * $isFulltime))
-	echo "Employee Daily wage" $salary
+	empHours=8
+elif [[ $isPartTime -eq $empCheck ]]
+then
+	empHours=4
 else
-	echo "Employee Absent"
+	empHours=0
 fi
+salary=$(($empWageperHour * $empHours))
+echo "Employee Daily wage" $salary
