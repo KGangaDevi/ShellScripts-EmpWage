@@ -22,12 +22,19 @@ function getWorkHours()
         esac
 	echo $empHours
 }
+function getEmpWage()
+{
+	local empHours=$1
+	echo $(($empHours*$empWageperHour))
+}
 while [[ $totalWorkingHours -lt $maxworkHours && $totalWorkingDays -lt $maxworkDays ]]
 do
 	((totalWorkingDays++))
 	empCheck=$((RANDOM%3))
 	empHours="$(getWorkHours $empCheck)"
 	totalWorkingHours=$(($totalWorkingHours+$empHours))
+	dailyWage[$totalWorkingDays]="$(getEmpWage $empHours)"
 done
 salary=$(($empWageperHour * $totalWorkingHours))
 echo "Employee Monthly wage using function for working hours " $salary
+echo ${dailyWage[@]}
